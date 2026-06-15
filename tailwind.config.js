@@ -13,6 +13,7 @@ export default {
         },
         amazon_yellow: "#febd69",
         amazon_text: "#007185",
+        amazon_text_blue: "#0F1111",
       },
     },
   },
