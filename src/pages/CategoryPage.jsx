@@ -26,13 +26,13 @@ const CategoryPage = () => {
   }, [categoryName]);
 
   return (
-    <main className="max-w-screen-2xl mx-auto p-4">
-      <div className="bg-white p-6 shadow-sm mb-6">
-        <h1 className="text-3xl font-medium capitalize">{categoryName}</h1>
-        <p className="text-sm text-gray-500 mt-1">{products.length} results</p>
+    <main className="max-w-screen-2xl mx-auto p-2 sm:p-4">
+      <div className="bg-white p-4 sm:p-6 shadow-sm mb-4 sm:mb-6 rounded-sm">
+        <h1 className="text-xl sm:text-3xl font-medium capitalize">{categoryName}</h1>
+        <p className="text-xs sm:text-sm text-gray-500 mt-1">{products.length} results</p>
       </div>
 
-      <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="grid grid-flow-row-dense grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4">
         {loading ? (
           Array(4).fill().map((_, i) => <ProductSkeleton key={i} />)
         ) : (

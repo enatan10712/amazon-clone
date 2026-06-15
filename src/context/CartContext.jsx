@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle } from 'lucide-react';
 
 const CartContext = createContext();
 
@@ -39,6 +38,17 @@ const cartReducer = (state, action) => {
       return state;
   }
 };
+
+const AnimatedCheck = () => (
+  <svg className="h-6 w-6 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+    <motion.path
+      d="M20 6L9 17l-5-5"
+      initial={{ pathLength: 0 }}
+      animate={{ pathLength: 1 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+    />
+  </svg>
+);
 
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
@@ -81,13 +91,13 @@ export const CartProvider = ({ children }) => {
           <motion.div
             initial={{ opacity: 0, y: 50, x: '-50%' }}
             animate={{ opacity: 1, y: 0, x: '-50%' }}
-            exit={{ opacity: 0, y: 50, x: '-50%' }}
-            className="fixed bottom-10 left-1/2 z-[100] bg-white border border-green-500 shadow-2xl rounded-md p-4 flex items-center space-x-3 min-w-[300px]"
+            exit={{ opacity: 0, scale: 0.8, x: '-50%' }}
+            className="fixed bottom-6 sm:bottom-10 left-1/2 z-[200] bg-white border border-green-500 shadow-2xl rounded-md p-3 sm:p-4 flex items-center space-x-3 min-w-[280px] sm:min-w-[300px] max-w-[90vw]"
           >
-            <CheckCircle className="h-6 w-6 text-green-500" />
-            <div>
+            <AnimatedCheck />
+            <div className="overflow-hidden">
               <p className="text-sm font-bold text-gray-900">Added to Cart</p>
-              <p className="text-xs text-gray-500 line-clamp-1">{lastAdded}</p>
+              <p className="text-xs text-gray-500 truncate">{lastAdded}</p>
             </div>
           </motion.div>
         )}

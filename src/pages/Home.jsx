@@ -15,7 +15,7 @@ const Home = () => {
         const response = await axios.get('https://fakestoreapi.com/products');
         setProducts(response.data);
       } catch (error) {
-        // Error handled silently for UX, could add error toast
+        // Silent error
       } finally {
         setLoading(false);
       }
@@ -29,7 +29,7 @@ const Home = () => {
       <Carousel />
       <CategorySection />
 
-      <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto gap-4 p-4">
+      <div className="grid grid-flow-row-dense grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mx-auto gap-2 sm:gap-4 p-2 sm:p-4">
         {loading ? (
           Array(8).fill().map((_, i) => <ProductSkeleton key={i} />)
         ) : (

@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import ScrollToTop from './ScrollToTop';
+import Sidebar from './Sidebar';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Layout = () => {
@@ -11,6 +12,7 @@ const Layout = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 overflow-x-hidden">
       <ScrollToTop />
+      <Sidebar />
       <Header />
       <main className="flex-grow">
         <AnimatePresence mode="wait">
