@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const categories = [
-  { name: "electronics", image: "https://fakestoreapi.com/img/61mtL65D4pL._AC_SX679_.jpg" },
+  { name: "electronics", image: "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg" },
   { name: "jewelery", image: "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg" },
   { name: "men's clothing", image: "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg" },
   { name: "women's clothing", image: "https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg" },
@@ -10,18 +11,34 @@ const categories = [
 
 const CategorySection = () => {
   return (
-    <div className="flex overflow-x-auto space-x-6 px-6 -mt-16 md:-mt-48 relative z-30 scrollbar-hide pb-4">
-      {categories.map((cat) => (
-        <div key={cat.name} className="bg-white p-6 shadow-sm min-w-[280px] md:min-w-[320px] flex-shrink-0">
-          <h2 className="text-xl font-bold mb-4 capitalize">{cat.name}</h2>
-          <div className="h-64 mb-4">
-            <img src={cat.image} alt={cat.name} className="w-full h-full object-contain" />
-          </div>
-          <Link to={`/category/${cat.name}`} className="text-amazon_text hover:text-orange-700 text-sm">
-            Shop now
-          </Link>
-        </div>
-      ))}
+    <div className="p-4 bg-gray-100 -mt-10 md:-mt-20 lg:-mt-32 relative z-40">
+      <div className="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide">
+        {categories.map((cat, index) => (
+          <motion.div
+            key={cat.name}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: index * 0.1 }}
+            whileHover={{ y: -5 }}
+            className="flex-shrink-0 w-64 md:w-80 bg-white p-6 shadow-sm cursor-pointer group"
+          >
+            <Link to={`/category/${cat.name}`}>
+              <h2 className="text-xl font-bold mb-4 capitalize group-hover:text-amazon_text transition-colors">
+                {cat.name}
+              </h2>
+              <div className="h-48 flex items-center justify-center overflow-hidden">
+                <motion.img
+                  whileHover={{ scale: 1.1 }}
+                  src={cat.image}
+                  alt={cat.name}
+                  className="h-full object-contain transition-transform duration-300"
+                />
+              </div>
+              <p className="text-amazon_text text-sm mt-4 group-hover:underline">Shop now</p>
+            </Link>
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 };
