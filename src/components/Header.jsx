@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Header = () => {
   const { cartCount } = useCart();
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   // Trigger animation when cartCount changes
   useEffect(() => {
@@ -38,14 +39,19 @@ const Header = () => {
         </div>
 
         {/* Search */}
-        <div className="hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer bg-amazon_yellow hover:bg-yellow-500 ml-4 transition-colors">
+        <motion.div
+          animate={isSearchFocused ? { scale: 1.01 } : { scale: 1 }}
+          className={`hidden sm:flex items-center h-10 rounded-md flex-grow cursor-pointer ${isSearchFocused ? 'ring-2 ring-amazon_yellow' : ''} bg-amazon_yellow hover:bg-yellow-500 ml-4 transition-all`}
+        >
           <input
+            onFocus={() => setIsSearchFocused(true)}
+            onBlur={() => setIsSearchFocused(false)}
             className="p-2 h-full w-6 flex-grow flex-shrink rounded-l-md focus:outline-none px-4"
             type="text"
             placeholder="Search Amazon Clone"
           />
           <Search className="h-12 p-4" />
-        </div>
+        </motion.div>
 
         {/* Right Section */}
         <div className="text-white flex items-center text-xs space-x-6 mx-6 whitespace-nowrap">
@@ -54,12 +60,11 @@ const Header = () => {
             <p className="font-extrabold md:text-sm flex items-center">Account & Lists <ChevronDown className="h-4 w-4 ml-1" /></p>
 
             {/* Dropdown with animation */}
-            <AnimatePresence>
-              <motion.div
+            <div className="hidden group-hover:block absolute top-full right-0 w-64 bg-white text-black p-4 shadow-xl z-50 border border-gray-200">
+               <motion.div
                 initial={{ opacity: 0, y: 10 }}
-                whileHover={{ opacity: 1, y: 0 }}
-                className="hidden group-hover:block absolute top-full right-0 w-64 bg-white text-black p-4 shadow-xl z-50 border border-gray-200"
-              >
+                animate={{ opacity: 1, y: 0 }}
+               >
                  <div className="flex flex-col items-center border-b pb-3 mb-3">
                    <button className="bg-[#FFD814] hover:bg-[#F7CA00] w-full py-1 rounded-md text-sm font-medium border border-[#FCD200]">Sign in</button>
                    <p className="text-[10px] mt-1">New customer? <span className="text-amazon_text hover:text-orange-700 hover:underline">Start here.</span></p>
@@ -77,8 +82,8 @@ const Header = () => {
                      <p className="hover:text-amazon_text hover:underline text-xs">Recommendations</p>
                    </div>
                  </div>
-              </motion.div>
-            </AnimatePresence>
+               </motion.div>
+            </div>
           </div>
 
           <div className="px-2 py-1 border border-transparent hover:border-white rounded-sm cursor-pointer transition-all">

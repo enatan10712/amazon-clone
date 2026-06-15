@@ -5,6 +5,7 @@ import { useCart } from '../context/CartContext';
 import { DetailSkeleton } from '../components/Skeleton';
 import ProductCard from '../components/ProductCard';
 import { Star } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -43,15 +44,31 @@ const ProductDetail = () => {
 
   return (
     <main className="max-w-screen-2xl mx-auto p-4 md:p-10">
-      <div className="flex flex-col md:flex-row bg-white p-6 md:p-10 shadow-sm">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="flex flex-col md:flex-row bg-white p-6 md:p-10 shadow-sm"
+      >
         {/* Image */}
-        <div className="flex justify-center md:w-1/2 mb-10 md:mb-0">
-          <img src={product.image} alt={product.title} className="max-h-96 object-contain" />
+        <div className="flex justify-center md:w-1/2 mb-10 md:mb-0 overflow-hidden">
+          <motion.img
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.5 }}
+            src={product.image}
+            alt={product.title}
+            className="max-h-96 object-contain cursor-zoom-in"
+          />
         </div>
 
         {/* Details */}
         <div className="md:w-1/2 md:pl-10">
-          <h1 className="text-2xl md:text-3xl font-medium mb-2">{product.title}</h1>
+          <motion.h1
+            initial={{ x: 20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            className="text-2xl md:text-3xl font-medium mb-2"
+          >
+            {product.title}
+          </motion.h1>
           <p className="text-amazon_text hover:underline cursor-pointer text-sm mb-2 capitalize">
             Visit the {product.category} store
           </p>
@@ -71,9 +88,15 @@ const ProductDetail = () => {
              <span className="text-sm align-top">{product.price.toFixed(2).split('.')[1]}</span>
           </div>
 
-          <div className="mb-6">
-            <h3 className="font-bold mb-1">About this item</h3>
-            <p className="text-sm text-gray-700 leading-relaxed">{product.description}</p>
+          <div className="mb-6 text-sm text-gray-700 leading-relaxed">
+            <h3 className="font-bold mb-1 text-black">About this item</h3>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              {product.description}
+            </motion.p>
           </div>
 
           <div className="flex items-center mb-6">
@@ -81,29 +104,38 @@ const ProductDetail = () => {
             <select
               value={quantity}
               onChange={(e) => setQuantity(parseInt(e.target.value))}
-              className="p-1 border bg-gray-100 rounded-md focus:outline-none cursor-pointer"
+              className="p-1 border bg-gray-100 rounded-md focus:outline-none cursor-pointer hover:bg-gray-200 transition-colors"
             >
               {[1,2,3,4,5,6,7,8,9,10].map(n => <option key={n} value={n}>{n}</option>)}
             </select>
           </div>
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => addToCart({ ...product, quantity })}
             className="w-full md:w-auto px-10 button"
           >
             Add to Cart
-          </button>
+          </motion.button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Related Products */}
       <div className="mt-10 bg-white p-6 shadow-sm overflow-hidden">
         <h2 className="text-2xl font-bold mb-4 border-b pb-2">Related Products</h2>
         <div className="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide">
-          {relatedProducts.map(p => (
-            <div key={p.id} className="min-w-[250px] flex-shrink-0">
+          {relatedProducts.map((p, index) => (
+            <motion.div
+              key={p.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="min-w-[250px] flex-shrink-0"
+            >
               <ProductCard product={p} />
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

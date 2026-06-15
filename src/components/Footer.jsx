@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -9,12 +10,13 @@ const Footer = () => {
   return (
     <footer className="bg-amazon_blue-light mt-10">
       {/* Back to Top */}
-      <button
+      <motion.button
+        whileHover={{ backgroundColor: '#485769' }}
         onClick={scrollToTop}
-        className="w-full bg-[#37475a] hover:bg-[#485769] text-white py-4 text-sm font-medium transition-colors"
+        className="w-full bg-[#37475a] text-white py-4 text-sm font-medium transition-colors"
       >
         Back to top
-      </button>
+      </motion.button>
 
       {/* Footer Links */}
       <div className="max-w-screen-xl mx-auto py-10 px-4 md:px-8">

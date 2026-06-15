@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -11,7 +11,7 @@ const categories = [
 
 const CategorySection = () => {
   return (
-    <div className="p-4 bg-gray-100 -mt-10 md:-mt-20 lg:-mt-32 relative z-40">
+    <div className="p-4 bg-gray-100 -mt-10 md:-mt-20 lg:-mt-32 relative z-40 overflow-hidden">
       <div className="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide">
         {categories.map((cat, index) => (
           <motion.div
